@@ -57,8 +57,6 @@ class AbsComplexPlane(ABC):
     plane and clear all functions that transform the plane. The method
     self.zoom should reset the parameters for the 2D grid of points and
     regenerate the grid, reapplying all collected functions to each point.
-    The method self.print should print the complex plane to the screen as
-    a human-readable table.
     
     Note that it may be advantageous to define other methods for your
     implementation that are not specified here. By convention, "private"
@@ -124,10 +122,3 @@ class AbsComplexPlane(ABC):
         """
         pass
     
-    @abstractmethod
-    def print(self):
-        """Print the complex plane to the screen in a human-readable way.
-        This should do more than just print the implementation list. It should
-        format the output nicely so that a person can understand the output.
-        """
-        pass
