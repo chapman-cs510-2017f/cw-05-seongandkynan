@@ -1,10 +1,12 @@
 language: python
 python:
-  - "3.5"
+  - 3.6
 # command to install dependencies
-install: "pip install pylint sympy"
+install: 
+  - pip install --upgrade pip setuptools wheel
+  - pip install --only-binary=numpy,scipy pylint sympy numpy pandas matplotlib
 # command to run tests
 script:
-  - "nosetests *.py"
+  - nosetests --exe
 notifications:
   email: false
