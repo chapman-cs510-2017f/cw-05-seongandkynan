@@ -1,8 +1,8 @@
 # CS510 CW 5
 
-**Author(s):** **CHANGEME**
+**Author(s):** **Seong Heon Lee and Kynan Barton**
 
-[![Build Status](https://travis-ci.org/chapman-cs510-2017f/cw-05-YOURNAME.svg?branch=master)](https://travis-ci.org/chapman-cs510-2017f/cw-05-YOURNAME)
+[![Build Status](https://travis-ci.org/chapman-cs510-2017f/cw-05-seongandkynan.svg?branch=master)](https://travis-ci.org/chapman-cs510-2017f/cw-05-seongandkynan)
 
 ## Specification
 
@@ -34,4 +34,4 @@ I pledge that all the work in this repository is my own with only the following 
 
 Signed,
 
-**YOURNAME**
+**Seong Heon Lee and Kynan Barton**
