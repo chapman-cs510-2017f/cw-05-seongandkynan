@@ -23,7 +23,9 @@
 
 Analyze in this section what you found useful about this assignment in your own words. Include any lingering questions or comments that you may have.
 
-**CHANGEME**
+1. **It was helpful to learn a object-oriented design, in which we can orgnize a program more logically with putting methods (actions) and attributes (data) together.**
+1. **Subclassing is a very helpful tool to increament functionalities by inheriting variations of a base class.**
+1. **List comprehesion was very simple and powerful in creating a 2D-grid data structure (a list of lists) by looping through two for-loops in one line.**
 
 ## Honor Pledge
 
