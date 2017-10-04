@@ -52,8 +52,8 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
 
         # See the implementation details of creating a complex plane  below 
         # in __cal_complex and  __create_plane functions.
-        self.cn = []
-        self.__cal_complex()
+        #self.cn = []
+        #self.__cal_complex()
         self.plane = []
         self.__create_plane()
 
@@ -61,13 +61,13 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
         # in order to each point of the complex plane, initially empty
         self.fs = []
 
-    def __cal_complex(self):
+    def __create_plane(self):
         """this method creates a list of complext number using the default attributes
         (xmax, xmin, xlen, ymin, ymax, ymin)."""
-        self.cn = [(self.xmin + x*self.xunit) 
-                    + (self.ymin + y*self.yunit) * 1j for x in range(self.xlen+1) for y in range(self.ylen+1)]
+        self.plane  = [[(self.xmin + x*self.xunit) 
+                    + (self.ymin + y*self.yunit) * 1j for x in range(self.xlen+1)] for y in range(self.ylen+1)]
  
-    def __create_plane(self):
+    def __create_plane_old(self):
         """This ia a private method to create a list of complex plane 
         at the time of class initiation with the default attributes
         (xmax, xmin, xlen, ymax, ymin), using another private method
@@ -88,7 +88,7 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
         the attribute fs to an empty list so that no functions 
         are transforming the fresh plane.
         """
-        self.__cal_complex()
+        #self.__cal_complex()
         self.__create_plane()
         self.fs = []
     
@@ -99,8 +99,7 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
         transformations collected in the list self.fs.
         """
         self.fs.append(f)
-        self.cn = [f(c) for c in self.cn]
-        self.__create_plane()
+        self.plane = [[f(self.plane[x][y]) for x in range(self.xlen+1)] for y in range(self.ylen+1)]
     
     def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
         """Reset self.xmin, self.xmax, and self.xlen.
@@ -132,12 +131,11 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
         self.ylen  = self.ymax - self.ymin
         self.xunit = (self.xmax - self.xmin) / self.xlen
         self.yunit = (self.ymax - self.ymin) / self.ylen
-
-        self.__cal_complex()
+        
+        self.__create_plane()
         for i, f in enumerate(self.fs):
             print("running the function "+str(i+1))
-            self.cn = [f(c) for c in self.cn]
-        self.__create_plane()
+            self.plane = [[f(self.plane[x][y]) for x in range(self.xlen+1)] for y in range(self.ylen+1)] 
             
     
 def main():
