@@ -24,7 +24,7 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
 
 
     """
-    def __init__(self):
+    def __init__(self, xmin=-4,xmax=4,xlen=8,ymin=-4,ymax=4,ylen=8):
         """all attributes will be automatically set when the class becomes 
         instantiated. 
 
@@ -41,45 +41,36 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
             fs (list[function]) : function sequence to transform plane
 
         """
-        self.xmin  = -4
-        self.xmax  = 4
-        self.xlen  = self.xmax - self.xmin
-        self.ymin  = -4
-        self.ymax  = 4
-        self.ylen  = self.ymax - self.ymin
+        self.xmin  = xmin
+        self.xmax  = xmax
+        self.xlen  = xlen
+        self.ymin  = ymin
+        self.ymax  = ymax
+        self.ylen  = ylen
         self.xunit = (self.xmax - self.xmin) / self.xlen
         self.yunit = (self.ymax - self.ymin) / self.ylen
 
         # See the implementation details of creating a complex plane  below 
-        # in __cal_complex and  __create_plane functions.
-        #self.cn = []
-        #self.__cal_complex()
+        # in  _create_plane function.
         self.plane = []
-        self.__create_plane()
+        self._create_plane()
 
         # store a list of functions that are being applied 
         # in order to each point of the complex plane, initially empty
         self.fs = []
 
-    def __create_plane(self):
-        """this method creates a list of complext number using the default attributes
-        (xmax, xmin, xlen, ymin, ymax, ymin)."""
-        self.plane  = [[(self.xmin + x*self.xunit) 
-                    + (self.ymin + y*self.yunit) * 1j for x in range(self.xlen+1)] for y in range(self.ylen+1)]
- 
-    def __create_plane_old(self):
+    def _create_plane(self):
         """This ia a private method to create a list of complex plane 
         at the time of class initiation with the default attributes
-        (xmax, xmin, xlen, ymax, ymin), using another private method
-        __cal_complex(). The method self.refresh also uses 
+        (xmax, xmin, xlen, ymax, ymin,ylen). The method self.refresh also uses 
         this private method to refresh each point in comlext planes using
         the stored attributes. 
 
         Returns:
             a list of complex plane
         """
-        self.plane = [[x.real for x in self.cn], [x.imag for x in self.cn]]
-
+        self.plane = [[(self.xmin + x*self.xunit) + (self.ymin + y*self.yunit)*1j for x in range(self.xlen+1)] for y in range(self.ylen+1)]
+ 
     def refresh(self):
         """Regenerate complex plane.
         Populate self.plane with new points (x + y*1j), using
@@ -88,8 +79,7 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
         the attribute fs to an empty list so that no functions 
         are transforming the fresh plane.
         """
-        #self.__cal_complex()
-        self.__create_plane()
+        self._create_plane()
         self.fs = []
     
     def apply(self, f):
@@ -125,14 +115,14 @@ class ListComplexPlane(abscplane.AbsComplexPlane):
         """
         self.xmin = xmin
         self.xmax = xmax
-        self.xlen  = self.xmax - self.xmin
+        self.xlen  = xlen
         self.ymin = ymin
         self.ymax = ymax
-        self.ylen  = self.ymax - self.ymin
+        self.ylen  = ylen
         self.xunit = (self.xmax - self.xmin) / self.xlen
         self.yunit = (self.ymax - self.ymin) / self.ylen
         
-        self.__create_plane()
+        self._create_plane()
         for i, f in enumerate(self.fs):
             print("running the function "+str(i+1))
             self.plane = [[f(self.plane[x][y]) for x in range(self.xlen+1)] for y in range(self.ylen+1)] 
